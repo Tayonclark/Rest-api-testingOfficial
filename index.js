@@ -1,39 +1,32 @@
-const Hapi = require('@hapi/hapi');
+//This testing that the save feature works!
+
+const Hapi = require("@hapi/hapi");
+const Joi = require("@hapi/joi");
+const path = require("path");
+const fs = require("fs");
 
 const init = async () => {
-    const server = Hapi.server({
-        port: 3000,
-        host: 'localhost'
-    });
+  const server = Hapi.server({
+    port: 3000,
+    host: "localhost",
+  });
 
-    // GET route
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, h) => {
-            const query = request.query;
-            return { message: "GET request received", query };
-        }
-    });
+  const routes = [];
 
-    // POST route
-    server.route({
-    method: 'POST',
-    path: '/',
-    options: {
-        payload: {
-            parse: true,
-            allow: 'application/json'
-        }
-    },
-    handler: (request, h) => {
-        console.log("POST body:", request.payload);
-        return { message: "POST request received", body: request.payload };
-    }
-});
+  const routesPath = path.join(__dirname, "routes");
 
-    await server.start();
-    console.log(`Server running on ${server.info.uri}`);
+  fs.readdirSync(routesPath).forEach((file) => {
+    if (file === "index.js") return;
+
+    const fileRoutes = require(path.join(routesPath, file));
+
+    routes.push(...fileRoutes);
+  });
+
+  server.route(routes);
+
+  await server.start();
+  console.log(`Server running on ${server.info.uri}`);
 };
 
 init();
