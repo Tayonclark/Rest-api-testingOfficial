@@ -1,0 +1,13 @@
+const fs = require("fs").promises;
+const path = require("path");
+
+class GenEd {
+  async find(criteria = () => true) {
+    const genedPath = path.join(__dirname, "gened.json");
+    const genedData = await fs.readFile(genedPath);
+    const genedCourses = JSON.parse(genedData);
+    return genedCourses.filter(criteria);
+  }
+}
+
+module.exports = new GenED();
