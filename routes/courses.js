@@ -1,18 +1,30 @@
-const Joi = require("@hapi/hapi");
+const Joi = require("joi");
+const courseController = require('../controllers/courses');
 
 module.exports = [
   {
     method: "GET",
     path: "/courses/{subject}",
-    handler: (request, h) => {
-      return request.params.subject;
-    },
+    options: {
+      validate: {
+        params: joi.object({
+          subject: joi.string().required()
+        })
+      },      
+      handler: coursesController.getCoursesBySubject
+    }
   },
+  
   {
     method: "GET",
-    path: "/courses/credits/{number}",
-    handler: (request, h) => {
-      return request.params.number;
-    },
-  },
+    path: "/gened/{category}",
+    options: {
+      validate: {
+        params: joi.object({
+          category: joi.string().required()
+        })
+      },    
+      handler: coursesController.getGenEdCoursesByCategory
+    }
+  }
 ];
