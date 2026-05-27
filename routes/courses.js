@@ -7,11 +7,11 @@ module.exports = [
     path: "/courses/{subject}",
     options: {
       validate: {
-        params: joi.object({
-          subject: joi.string().required()
+        params: Joi.object({
+          subject: Joi.string().required()
         })
       },      
-      handler: coursesController.getCoursesBySubject
+      handler: (request, h) => courseController.getCoursesBySubject(request, h)
     }
   },
   
@@ -20,11 +20,11 @@ module.exports = [
     path: "/gened/{category}",
     options: {
       validate: {
-        params: joi.object({
-          category: joi.string().required()
+        params: Joi.object({
+          category: Joi.string().required()
         })
       },    
-      handler: coursesController.getGenEdCoursesByCategory
+      handler: courseController.getGenEdCoursesByCategory
     }
   }
 ];

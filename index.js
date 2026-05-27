@@ -23,10 +23,12 @@ const init = async () => {
     routes.push(...fileRoutes);
   });
 
-  server.route(routes);
+  if (routes.length > 0) {
+    server.route(routes);
+  }
 
   await server.start();
-  console.log(`Server running on ${server.info.uri}`);
+  console.log("Server running on %s", server.info.uri);
 };
 
 init();

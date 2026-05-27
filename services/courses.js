@@ -1,4 +1,4 @@
-const courseModel = require("..models/courses");
+const courseModel = require("../models/courses");
 const genedModel = require("../models/gened");
 
 class CourseServices {

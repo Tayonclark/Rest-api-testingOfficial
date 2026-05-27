@@ -13,4 +13,4 @@ class CourseController {
     return JSON.stringify(result);
   }
 }
-module.exports = new CourseCOntroller();
+module.exports = new CourseController();

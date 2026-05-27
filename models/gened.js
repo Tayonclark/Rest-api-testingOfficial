@@ -10,4 +10,4 @@ class GenEd {
   }
 }
 
-module.exports = new GenED();
+module.exports = new GenEd();
